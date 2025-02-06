@@ -1,7 +1,7 @@
 require './lib/Node.rb'
 
 class Tree
-  def recursive_build_tree(array, left, right)
+  def recursive_build_tree(array, left = 0, right = array.size)
     if (left < right - 1)
       middle = (left+right)/2
       root = Node.new(array[middle])
@@ -15,7 +15,7 @@ class Tree
 
   def build_tree(array)
     array.sort!
-    @root = recursive_build_tree(array, 0, array.size)
+    @root = recursive_build_tree(array)
   end
 
   def insert(value)
@@ -80,9 +80,9 @@ class Tree
   def find(value)
     node = @root
     until (node.nil? || node.data == value)
-      if(value > child.data)
+      if(value > node.data)
         node = node.right
-      elsif(value < child.data)
+      elsif(value < node.data)
         node = node.left
       end
     end
@@ -134,6 +134,25 @@ class Tree
     else
       return 0
     end
+  end
+  
+  def depth(find)
+    height(@root) - height(find)
+  end
+
+  def balanced?(node = @root)
+    unless node.nil?
+      node_balanced = (height(node.left) - height(node.right)).abs < 2
+      return node_balanced && balanced?(node.left) && balanced?(node.right)
+    else
+      return true
+    end
+  end
+
+  def rebalance
+    node_data = []
+    level_order {|node| node_data.push(node.data)}
+    @root = recursive_build_tree(node_data.sort)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)

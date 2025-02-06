@@ -6,8 +6,8 @@ class Node
   end
 
   def initialize(data)
-      @data = data
-      @left = nil
-      @right = nil
+    @data = data
+    @left = nil
+    @right = nil
   end
 end

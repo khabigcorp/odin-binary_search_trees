@@ -28,3 +28,9 @@ puts
 
 puts "Height"
 puts new_tree.height(new_tree.find(4))
+puts "Depth"
+puts new_tree.depth(new_tree.find(4))
+puts "Balanced?"
+puts new_tree.balanced?
+new_tree.rebalance
+new_tree.pretty_print
