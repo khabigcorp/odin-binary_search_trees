@@ -12,3 +12,17 @@ new_tree.pretty_print
 
 new_tree.delete(8)
 new_tree.pretty_print
+
+found_node = new_tree.find(4)
+puts found_node.left.data
+puts found_node.right.data
+
+new_tree.level_order {|node| print "#{node.data} "}
+puts
+new_tree.inorder {|node| print "#{node.data} "}
+puts
+new_tree.preorder {|node| print "#{node.data} "}
+puts
+new_tree.postorder {|node| print "#{node.data} "}
+puts
+

@@ -77,6 +77,55 @@ class Tree
     end
   end
 
+  def find(value)
+    node = @root
+    until (node.nil? || node.data == value)
+      if(value > child.data)
+        node = node.right
+      elsif(value < child.data)
+        node = node.left
+      end
+    end
+    node
+  end
+
+  def level_order
+    queue = []
+    queue.push(@root)
+    until queue.size == 0
+      current_node = queue[0]
+      yield(current_node)
+      queue.push(current_node.left) unless current_node.left.nil?
+      queue.push(current_node.right) unless current_node.right.nil?
+      queue.shift()
+    end
+    puts
+  end
+
+  def inorder(root = @root, &block)
+    unless root.nil?
+      inorder(root.left, &block) 
+      yield(root)
+      inorder(root.right, &block) 
+    end
+  end
+
+  def preorder(root = @root, &block)
+    unless root.nil?
+      yield(root)
+      preorder(root.left, &block) 
+      preorder(root.right, &block) 
+    end
+  end
+
+  def postorder(root = @root, &block)
+    unless root.nil?
+      postorder(root.left, &block) 
+      postorder(root.right, &block) 
+      yield(root)
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
