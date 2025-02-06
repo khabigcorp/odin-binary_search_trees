@@ -126,6 +126,16 @@ class Tree
     end
   end
 
+  def height(node)
+    unless node.nil?
+      left_height = (node.left.nil?) ? 0 : 1 + height(node.left)
+      right_height = (node.right.nil?) ? 0 : 1 + height(node.right)
+      return (left_height > right_height) ? left_height : right_height
+    else
+      return 0
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"

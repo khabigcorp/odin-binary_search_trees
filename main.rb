@@ -26,3 +26,5 @@ puts
 new_tree.postorder {|node| print "#{node.data} "}
 puts
 
+puts "Height"
+puts new_tree.height(new_tree.find(4))
